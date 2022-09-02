@@ -12,7 +12,7 @@ import db.DB;
 
 public class Program {
 
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 		Connection conn = null;
@@ -21,28 +21,15 @@ public class Program {
 		try {
 			conn = DB.getConnection();
 
-			st = conn.prepareStatement(
-					"INSERT INTO seller (Name, Email,BirthDate, BaseSalary, DepartmentId) VALUES (?, ?, ?, ?, ?)",
-					Statement.RETURN_GENERATED_KEYS);
+			st = conn.prepareStatement("UPDATE seller SET BaseSalary = BaseSalary + ? WHERE DepartmentId = ?");
 
-			st.setString(1, "Ellie Cavaillier");
-			st.setString(2, "ellie@gmail.com");
-			st.setDate(3, new java.sql.Date(sdf.parse("22/04/1985").getTime()));
-			st.setDouble(4, 3000.0);
-			st.setInt(5, 4);
+			// Esse 1 e 2 é a qual interrogação que foi colocada
+			st.setDouble(1, 200.0);
+			st.setInt(2, 2);
 
 			int rowsAffected = st.executeUpdate();
-			
-			if(rowsAffected > 0) {
-				ResultSet rs = st.getGeneratedKeys();
-				while(rs.next()) {
-					int id = rs.getInt(1);
-					System.out.println("Pronto! Id = " + id);
-				}
-			}else {
-				System.out.println("Nenhuma linha afetada!");
-			}
 
+			System.out.println("Pronto! " + rowsAffected + " linha(s) afetada(s)");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
