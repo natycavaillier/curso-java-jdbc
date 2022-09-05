@@ -34,3 +34,5 @@ INSERT INTO seller (Name, Email, BirthDate, BaseSalary, DepartmentId) VALUES
   
   SELECT * FROM seller;
   SELECT * FROM department;
+  
+  INSERT INTO department (Name) VALUES ('D1'), ('D2');
