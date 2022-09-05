@@ -33,3 +33,4 @@ INSERT INTO seller (Name, Email, BirthDate, BaseSalary, DepartmentId) VALUES
   ('Alex Pink','bob@gmail.com','1997-03-04 00:00:00',3000,2);
   
   SELECT * FROM seller;
+  SELECT * FROM department;
